@@ -1,0 +1,221 @@
+.app {
+  background-color: var(--background);
+}
+
+.navbar {
+  width: 100%;
+  padding: 16px;
+  background-color: var(--primary);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.navbar h1 {
+  color: var(--background);
+}
+.navbar .navbar-controls {
+  display: flex;
+  gap: 16px;
+}
+
+main {
+  max-width: 768px;
+  margin: 32px auto;
+}
+main .search-container {
+  text-align: center;
+  margin-bottom: 32px;
+}
+main .search-container span {
+  color: var(--primary);
+}
+main .search-container input {
+  width: 75%;
+  height: 32px;
+  padding: 16px;
+  margin-top: 16px;
+}
+main .books-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 32px;
+}
+main .books-container .book-card {
+  transition: all 0.25s;
+  cursor: pointer;
+  height: -moz-max-content;
+  height: max-content;
+}
+main .books-container .book-card img {
+  width: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+main .books-container .book-card:hover {
+  opacity: 0.9;
+  scale: 1.1;
+}
+
+.dashboard header {
+  margin: 16px;
+}
+.dashboard .data-container {
+  width: 75vw;
+  height: 75vh;
+  margin: auto;
+  display: flex;
+  gap: 16px;
+  margin-top: 32px;
+  overflow: hidden;
+}
+.dashboard .data-container .buku-container,
+.dashboard .data-container .users-container {
+  border: 1px solid black;
+  border-radius: 8px;
+  overflow-x: hidden;
+  position: relative;
+}
+.dashboard .data-container .buku-container .add-buku-button,
+.dashboard .data-container .users-container .add-buku-button {
+  position: absolute;
+  bottom: 16px;
+  right: 16px;
+  background-color: var(--secondary);
+  padding: 8px 16px;
+  color: var(--background);
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+}
+.dashboard .data-container .buku-container .add-buku-button:hover,
+.dashboard .data-container .users-container .add-buku-button:hover {
+  scale: 1.1;
+}
+.dashboard .data-container .buku-container,
+.dashboard .data-container .users-container {
+  height: 100%;
+  width: 100%;
+}
+.dashboard .data-container .buku-container .buku-header,
+.dashboard .data-container .buku-container .users-header,
+.dashboard .data-container .users-container .buku-header,
+.dashboard .data-container .users-container .users-header {
+  background-color: var(--primary);
+  width: 100%;
+  padding: 16px;
+}
+.dashboard .data-container .buku-container .buku-header h3,
+.dashboard .data-container .buku-container .users-header h3,
+.dashboard .data-container .users-container .buku-header h3,
+.dashboard .data-container .users-container .users-header h3 {
+  color: var(--background);
+}
+.dashboard .data-container .buku-container .buku-data,
+.dashboard .data-container .buku-container .users-data,
+.dashboard .data-container .users-container .buku-data,
+.dashboard .data-container .users-container .users-data {
+  width: 100%;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.dashboard .dashboard-buku {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.dashboard .dashboard-buku .dashboard-buku-controls {
+  display: flex;
+  gap: 12px;
+}
+.dashboard .dashboard-buku .dashboard-buku-controls button {
+  height: 24px;
+  width: 24px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+}
+.dashboard .dashboard-buku .dashboard-buku-controls button img {
+  height: 50%;
+  width: 50%;
+}
+.dashboard .dashboard-buku .dashboard-buku-controls button:nth-of-type(1) {
+  background-color: var(--success);
+}
+.dashboard .dashboard-buku .dashboard-buku-controls button:nth-of-type(2) {
+  background-color: var(--error);
+}
+.dashboard .dashboard-buku .dashboard-buku-controls button:hover {
+  scale: 1.1;
+}
+
+.buku-popup {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.buku-popup .buku-popup-background {
+  background-color: var(--text);
+  opacity: 0.5;
+  z-index: 1;
+  height: 100%;
+  width: 100%;
+  cursor: pointer;
+}
+.buku-popup .buku-popup-content {
+  width: 50%;
+  padding-bottom: 64px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: var(--background);
+  z-index: 2;
+}
+.buku-popup .buku-popup-content .buku-popup-header {
+  background-color: var(--primary);
+  padding: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.buku-popup .buku-popup-content .buku-popup-header h1 {
+  color: var(--background);
+}
+.buku-popup .buku-popup-content .buku-popup-header button {
+  height: 32px;
+  width: 32px;
+  background-color: var(--error);
+  border: none;
+  cursor: pointer;
+}
+.buku-popup .buku-popup-content section {
+  padding: 16px;
+}
+.buku-popup .buku-popup-content section .add-popup {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.buku-popup .buku-popup-content section .add-popup input {
+  width: 100%;
+  padding: 8px 16px;
+  border: 2px solid var(--primary);
+}
+.buku-popup .buku-popup-content section .add-popup button {
+  position: absolute;
+  bottom: 16px;
+  right: 16px;
+  background-color: var(--secondary);
+  padding: 8px 16px;
+  color: var(--background);
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+}
+.buku-popup .buku-popup-content section .add-popup button:hover {
+  scale: 1.1;
+}/*# sourceMappingURL=App.css.map */

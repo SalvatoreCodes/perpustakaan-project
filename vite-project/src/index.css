@@ -1,0 +1,44 @@
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --primary: #2c3e50;
+  --secondary: #3498db;
+  --background: #f8f9fa;
+  --text: #7d7d7d;
+  --headings: #2b2b2b;
+  --error: #e57373;
+  --warning: #4fc3f7;
+  --success: #81c784;
+}
+
+body {
+  width: 100%;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Montserrat", serif;
+  font-weight: bold;
+  color: var(--headings);
+}
+
+p,
+a {
+  font-family: "Roboto", serif;
+  color: var(--text);
+}
+
+a {
+  text-decoration: none;
+  color: var(--text);
+}/*# sourceMappingURL=index.css.map */
