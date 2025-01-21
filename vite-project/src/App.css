@@ -39,6 +39,7 @@ main .books-container {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   gap: 32px;
+  padding: 32px;
 }
 main .books-container .book-card {
   transition: all 0.25s;
@@ -76,7 +77,9 @@ main .books-container .book-card:hover {
   position: relative;
 }
 .dashboard .data-container .buku-container .add-buku-button,
-.dashboard .data-container .users-container .add-buku-button {
+.dashboard .data-container .buku-container .add-users-button,
+.dashboard .data-container .users-container .add-buku-button,
+.dashboard .data-container .users-container .add-users-button {
   position: absolute;
   bottom: 16px;
   right: 16px;
@@ -88,7 +91,9 @@ main .books-container .book-card:hover {
   cursor: pointer;
 }
 .dashboard .data-container .buku-container .add-buku-button:hover,
-.dashboard .data-container .users-container .add-buku-button:hover {
+.dashboard .data-container .buku-container .add-users-button:hover,
+.dashboard .data-container .users-container .add-buku-button:hover,
+.dashboard .data-container .users-container .add-users-button:hover {
   scale: 1.1;
 }
 .dashboard .data-container .buku-container,
@@ -120,44 +125,65 @@ main .books-container .book-card:hover {
   flex-direction: column;
   gap: 16px;
 }
-.dashboard .dashboard-buku {
+.dashboard .dashboard-buku,
+.dashboard .dashboard-users {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
-.dashboard .dashboard-buku .dashboard-buku-controls {
+.dashboard .dashboard-buku .dashboard-buku-controls,
+.dashboard .dashboard-buku .dashboard-users-controls,
+.dashboard .dashboard-users .dashboard-buku-controls,
+.dashboard .dashboard-users .dashboard-users-controls {
   display: flex;
   gap: 12px;
 }
-.dashboard .dashboard-buku .dashboard-buku-controls button {
+.dashboard .dashboard-buku .dashboard-buku-controls button,
+.dashboard .dashboard-buku .dashboard-users-controls button,
+.dashboard .dashboard-users .dashboard-buku-controls button,
+.dashboard .dashboard-users .dashboard-users-controls button {
   height: 24px;
   width: 24px;
   border-radius: 50%;
   border: none;
   cursor: pointer;
 }
-.dashboard .dashboard-buku .dashboard-buku-controls button img {
+.dashboard .dashboard-buku .dashboard-buku-controls button img,
+.dashboard .dashboard-buku .dashboard-users-controls button img,
+.dashboard .dashboard-users .dashboard-buku-controls button img,
+.dashboard .dashboard-users .dashboard-users-controls button img {
   height: 50%;
   width: 50%;
 }
-.dashboard .dashboard-buku .dashboard-buku-controls button:nth-of-type(1) {
+.dashboard .dashboard-buku .dashboard-buku-controls button:nth-of-type(1),
+.dashboard .dashboard-buku .dashboard-users-controls button:nth-of-type(1),
+.dashboard .dashboard-users .dashboard-buku-controls button:nth-of-type(1),
+.dashboard .dashboard-users .dashboard-users-controls button:nth-of-type(1) {
   background-color: var(--success);
 }
-.dashboard .dashboard-buku .dashboard-buku-controls button:nth-of-type(2) {
+.dashboard .dashboard-buku .dashboard-buku-controls button:nth-of-type(2),
+.dashboard .dashboard-buku .dashboard-users-controls button:nth-of-type(2),
+.dashboard .dashboard-users .dashboard-buku-controls button:nth-of-type(2),
+.dashboard .dashboard-users .dashboard-users-controls button:nth-of-type(2) {
   background-color: var(--error);
 }
-.dashboard .dashboard-buku .dashboard-buku-controls button:hover {
+.dashboard .dashboard-buku .dashboard-buku-controls button:hover,
+.dashboard .dashboard-buku .dashboard-users-controls button:hover,
+.dashboard .dashboard-users .dashboard-buku-controls button:hover,
+.dashboard .dashboard-users .dashboard-users-controls button:hover {
   scale: 1.1;
 }
 
-.buku-popup {
+.buku-popup,
+.delete-popup {
   height: 100%;
   width: 100%;
   position: absolute;
   top: 0;
   left: 0;
 }
-.buku-popup .buku-popup-background {
+.buku-popup .buku-popup-background,
+.delete-popup .buku-popup-background {
   background-color: var(--text);
   opacity: 0.5;
   z-index: 1;
@@ -165,7 +191,10 @@ main .books-container .book-card:hover {
   width: 100%;
   cursor: pointer;
 }
-.buku-popup .buku-popup-content {
+.buku-popup .buku-popup-content,
+.buku-popup .delete-popup-content,
+.delete-popup .buku-popup-content,
+.delete-popup .delete-popup-content {
   width: 50%;
   padding-bottom: 64px;
   position: absolute;
@@ -174,38 +203,78 @@ main .books-container .book-card:hover {
   transform: translate(-50%, -50%);
   background-color: var(--background);
   z-index: 2;
+  border: 1px solid black;
 }
-.buku-popup .buku-popup-content .buku-popup-header {
+.buku-popup .buku-popup-content .buku-popup-header,
+.buku-popup .buku-popup-content .delete-popup-header,
+.buku-popup .delete-popup-content .buku-popup-header,
+.buku-popup .delete-popup-content .delete-popup-header,
+.delete-popup .buku-popup-content .buku-popup-header,
+.delete-popup .buku-popup-content .delete-popup-header,
+.delete-popup .delete-popup-content .buku-popup-header,
+.delete-popup .delete-popup-content .delete-popup-header {
   background-color: var(--primary);
   padding: 16px;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
-.buku-popup .buku-popup-content .buku-popup-header h1 {
+.buku-popup .buku-popup-content .buku-popup-header h1,
+.buku-popup .buku-popup-content .delete-popup-header h1,
+.buku-popup .delete-popup-content .buku-popup-header h1,
+.buku-popup .delete-popup-content .delete-popup-header h1,
+.delete-popup .buku-popup-content .buku-popup-header h1,
+.delete-popup .buku-popup-content .delete-popup-header h1,
+.delete-popup .delete-popup-content .buku-popup-header h1,
+.delete-popup .delete-popup-content .delete-popup-header h1 {
   color: var(--background);
 }
-.buku-popup .buku-popup-content .buku-popup-header button {
+.buku-popup .buku-popup-content .buku-popup-header button,
+.buku-popup .buku-popup-content .delete-popup-header button,
+.buku-popup .delete-popup-content .buku-popup-header button,
+.buku-popup .delete-popup-content .delete-popup-header button,
+.delete-popup .buku-popup-content .buku-popup-header button,
+.delete-popup .buku-popup-content .delete-popup-header button,
+.delete-popup .delete-popup-content .buku-popup-header button,
+.delete-popup .delete-popup-content .delete-popup-header button {
   height: 32px;
   width: 32px;
   background-color: var(--error);
   border: none;
   cursor: pointer;
 }
-.buku-popup .buku-popup-content section {
+.buku-popup .buku-popup-content .delete-popup-header,
+.buku-popup .delete-popup-content .delete-popup-header,
+.delete-popup .buku-popup-content .delete-popup-header,
+.delete-popup .delete-popup-content .delete-popup-header {
+  background-color: var(--error);
+}
+.buku-popup .buku-popup-content section,
+.buku-popup .delete-popup-content section,
+.delete-popup .buku-popup-content section,
+.delete-popup .delete-popup-content section {
   padding: 16px;
 }
-.buku-popup .buku-popup-content section .add-popup {
+.buku-popup .buku-popup-content section .add-popup,
+.buku-popup .delete-popup-content section .add-popup,
+.delete-popup .buku-popup-content section .add-popup,
+.delete-popup .delete-popup-content section .add-popup {
   display: flex;
   flex-direction: column;
   gap: 16px;
 }
-.buku-popup .buku-popup-content section .add-popup input {
+.buku-popup .buku-popup-content section .add-popup input,
+.buku-popup .delete-popup-content section .add-popup input,
+.delete-popup .buku-popup-content section .add-popup input,
+.delete-popup .delete-popup-content section .add-popup input {
   width: 100%;
   padding: 8px 16px;
   border: 2px solid var(--primary);
 }
-.buku-popup .buku-popup-content section .add-popup button {
+.buku-popup .buku-popup-content section .add-popup button,
+.buku-popup .delete-popup-content section .add-popup button,
+.delete-popup .buku-popup-content section .add-popup button,
+.delete-popup .delete-popup-content section .add-popup button {
   position: absolute;
   bottom: 16px;
   right: 16px;
@@ -216,6 +285,46 @@ main .books-container .book-card:hover {
   border: none;
   cursor: pointer;
 }
-.buku-popup .buku-popup-content section .add-popup button:hover {
+.buku-popup .buku-popup-content section .add-popup button:hover,
+.buku-popup .delete-popup-content section .add-popup button:hover,
+.delete-popup .buku-popup-content section .add-popup button:hover,
+.delete-popup .delete-popup-content section .add-popup button:hover {
   scale: 1.1;
+}
+.buku-popup .buku-popup-content .delete-popup-buttons,
+.buku-popup .delete-popup-content .delete-popup-buttons,
+.delete-popup .buku-popup-content .delete-popup-buttons,
+.delete-popup .delete-popup-content .delete-popup-buttons {
+  position: absolute;
+  right: 0;
+  display: flex;
+  gap: 16px;
+}
+.buku-popup .buku-popup-content .delete-popup-buttons button,
+.buku-popup .delete-popup-content .delete-popup-buttons button,
+.delete-popup .buku-popup-content .delete-popup-buttons button,
+.delete-popup .delete-popup-content .delete-popup-buttons button {
+  padding: 8px 16px;
+  color: var(--background);
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
+}
+.buku-popup .buku-popup-content .delete-popup-buttons button:hover,
+.buku-popup .delete-popup-content .delete-popup-buttons button:hover,
+.delete-popup .buku-popup-content .delete-popup-buttons button:hover,
+.delete-popup .delete-popup-content .delete-popup-buttons button:hover {
+  scale: 1.1;
+}
+.buku-popup .buku-popup-content .delete-popup-buttons button:nth-child(1),
+.buku-popup .delete-popup-content .delete-popup-buttons button:nth-child(1),
+.delete-popup .buku-popup-content .delete-popup-buttons button:nth-child(1),
+.delete-popup .delete-popup-content .delete-popup-buttons button:nth-child(1) {
+  background-color: var(--error);
+}
+.buku-popup .buku-popup-content .delete-popup-buttons button:nth-child(2),
+.buku-popup .delete-popup-content .delete-popup-buttons button:nth-child(2),
+.delete-popup .buku-popup-content .delete-popup-buttons button:nth-child(2),
+.delete-popup .delete-popup-content .delete-popup-buttons button:nth-child(2) {
+  background-color: var(--secondary);
 }/*# sourceMappingURL=App.css.map */

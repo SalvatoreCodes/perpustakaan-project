@@ -6,6 +6,7 @@ import App from "./App.jsx";
 import Register from "./Routes/Register.jsx";
 import Login from "./Routes/Login.jsx";
 import Dashboard from "./Routes/Dashboard.jsx";
+import axios from "axios";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>

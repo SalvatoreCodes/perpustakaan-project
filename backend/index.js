@@ -29,6 +29,44 @@ app.get("/buku", (req, res) => {
   });
 });
 
+app.get("/users", (req, res) => {
+  const q = "SELECT * FROM users";
+  db.query(q, (err, data) => {
+    if (err) return res.json(err);
+    return res.json(data);
+  });
+});
+
+app.post("/buku", (req, res) => {
+  const q = "INSERT INTO buku (`cover`, `title`, `description`) VALUES (?)";
+  const values = [req.body.cover, req.body.title, req.body.description];
+
+  db.query(q, [values], (err, data) => {
+    if (err) return err;
+    res.json(data);
+  });
+});
+
+app.post("/users", (req, res) => {
+  const q = "INSERT INTO users (`username`, `password`, `name`) VALUES (?)";
+  const values = [req.body.username, req.body.password, req.body.name];
+
+  db.query(q, [values], (err, data) => {
+    if (err) return err;
+    res.json(data);
+  });
+});
+
+app.delete("/buku/:id", (req, res) => {
+  const bukuId = req.params.id;
+  const q = "DELETE FROM buku WHERE id = ?";
+
+  db.query(q, [bukuId], (err, data) => {
+    if (err) return res.json(err);
+    return res.json("Buku Deleted");
+  });
+});
+
 app.listen(8800, () => {
   console.log("connected");
 });

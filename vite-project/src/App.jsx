@@ -7,18 +7,37 @@ import Book from "./Components/Book";
 
 function App() {
   const [buku, setBuku] = React.useState([]);
+  const [search, setSearch] = React.useState("");
+  const [filteredBuku, setFilteredBuku] = React.useState([]);
 
   React.useEffect(() => {
     const fetchBuku = async () => {
       try {
         const res = await axios.get("http://localhost:8800/buku");
         setBuku(res.data);
+        setFilteredBuku(buku);
       } catch (err) {
         console.log(err);
       }
     };
     fetchBuku();
   }, []);
+
+  const changeHandler = (e) => {
+    const value = e.target.value;
+    setSearch(value);
+
+    if (value.length === 0) {
+      // Reset to the full list when the input is empty
+      setFilteredBuku(buku);
+    } else {
+      // Filter the books based on the search value
+      const filteredSearch = buku.filter((buku) =>
+        buku.title.toLowerCase().includes(value.toLowerCase())
+      );
+      setFilteredBuku(filteredSearch);
+    }
+  };
 
   return (
     <div className="app">
@@ -28,10 +47,15 @@ function App() {
           <h1>
             Search for the <span>books</span> you want
           </h1>
-          <input type="search" />
+          <input
+            type="search"
+            onChange={changeHandler}
+            name="search"
+            value={search}
+          />
         </div>
         <div className="books-container">
-          {buku.map((book, index) => (
+          {filteredBuku.map((book, index) => (
             <Book
               key={index}
               title={book.title}
