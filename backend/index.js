@@ -48,8 +48,14 @@ app.post("/buku", (req, res) => {
 });
 
 app.post("/users", (req, res) => {
-  const q = "INSERT INTO users (`username`, `password`, `name`) VALUES (?)";
-  const values = [req.body.username, req.body.password, req.body.name];
+  const q =
+    "INSERT INTO users (`name`, `username`, `password`, `is_admin`) VALUES (?)";
+  const values = [
+    req.body.name,
+    req.body.username,
+    req.body.password,
+    req.body.is_admin,
+  ];
 
   db.query(q, [values], (err, data) => {
     if (err) return err;
@@ -64,6 +70,16 @@ app.delete("/buku/:id", (req, res) => {
   db.query(q, [bukuId], (err, data) => {
     if (err) return res.json(err);
     return res.json("Buku Deleted");
+  });
+});
+
+app.delete("/users/:id", (req, res) => {
+  const userId = req.params.id;
+  const q = "DELETE FROM users WHERE id = ?";
+
+  db.query(q, userId, (err, data) => {
+    if (err) return res.json(err);
+    return res.json("User Deleted");
   });
 });
 

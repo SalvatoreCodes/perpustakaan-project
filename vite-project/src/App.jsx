@@ -15,13 +15,15 @@ function App() {
       try {
         const res = await axios.get("http://localhost:8800/buku");
         setBuku(res.data);
-        setFilteredBuku(buku);
+        setFilteredBuku(res.data);
       } catch (err) {
         console.log(err);
       }
     };
     fetchBuku();
   }, []);
+
+  console.log(filteredBuku);
 
   const changeHandler = (e) => {
     const value = e.target.value;
@@ -55,9 +57,9 @@ function App() {
           />
         </div>
         <div className="books-container">
-          {filteredBuku.map((book, index) => (
+          {filteredBuku.map((book) => (
             <Book
-              key={index}
+              key={book.id}
               title={book.title}
               description={book.description}
             />

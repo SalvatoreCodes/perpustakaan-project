@@ -47,9 +47,10 @@ function Dashboard() {
     });
 
     const [userData, setUserData] = React.useState({
+      name: "",
       username: "",
       password: "",
-      name: "",
+      is_admin: 0,
     });
 
     const clickHandler = async (e) => {
@@ -71,6 +72,7 @@ function Dashboard() {
     const inputHandler = (e) => {
       if (buttonIndex === 1) {
         setBukuData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+        console.log(bukuData);
       } else if (buttonIndex === 2) {
         setUserData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
       }
@@ -106,7 +108,7 @@ function Dashboard() {
             </div>
             <div className="add-popup" id="add-buku-popup">
               <h3>Cover</h3>
-              <input type="text" name="cover" onChange={inputHandler} />
+              <input type="file" name="cover" onChange={inputHandler} />
               <h3>Title</h3>
               <input type="text" name="title" onChange={inputHandler} />
               <h3>Description</h3>
@@ -129,10 +131,18 @@ function Dashboard() {
   };
 
   const DeletePopup = () => {
-    const deleteBuku = async () => {
+    const deleteHandler = async (e) => {
+      e.preventDefault();
       try {
-        await axios.delete("http://localhost:8800/buku/" + deleteId);
-        setBuku((prev) => prev.filter((buku) => buku.id !== deleteId));
+        if (buttonIndex === 1) {
+          await axios.delete("http://localhost:8800/buku/" + deleteId);
+          setBuku((prev) => prev.filter((buku) => buku.id !== deleteId));
+        } else if (buttonIndex === 2) {
+          await axios.delete("http://localhost:8800/users/" + deleteId);
+          setUsers((prev) => prev.filter((user) => user.id !== deleteId));
+        } else if (buttonIndex === 3) {
+          alert("Unable to delete Admin");
+        }
         setDeletePopup(false);
       } catch (err) {
         console.log(err);
@@ -146,7 +156,7 @@ function Dashboard() {
             <h1>Are you sure?</h1>
           </div>
           <section className="delete-popup-buttons">
-            <button onClick={deleteBuku}>Delete</button>
+            <button onClick={deleteHandler}>Delete</button>
             <button onClick={() => setDeletePopup(false)}>Cancel</button>
           </section>
         </div>
@@ -185,6 +195,7 @@ function Dashboard() {
                   </button>
                   <button
                     onClick={() => {
+                      setButtonIndex(1);
                       setDeletePopup(!deletePopup);
                       setDeleteId(buku.id);
                     }}
@@ -210,13 +221,27 @@ function Dashboard() {
           <div className="users-data">
             {users.map((user) => (
               <div className="dashboard-users" key={user.id}>
-                <h5>{user.name}</h5>
+                <h5>
+                  {user.is_admin ? (
+                    <h4>
+                      {user.name}
+                      <p>ADMIN</p>
+                    </h4>
+                  ) : (
+                    user.name
+                  )}
+                </h5>
                 <div className="dashboard-users-controls">
                   <button onClick={clickHandler} name="edit">
                     <img src={editIcon} alt="edit icon" name="edit" />
                   </button>
                   <button
                     onClick={() => {
+                      if (user.is_admin === 1) {
+                        setButtonIndex(3);
+                      } else {
+                        setButtonIndex(2);
+                      }
                       setDeletePopup(!deletePopup);
                       setDeleteId(user.id);
                     }}
