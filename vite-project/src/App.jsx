@@ -23,8 +23,6 @@ function App() {
     fetchBuku();
   }, []);
 
-  console.log(filteredBuku);
-
   const changeHandler = (e) => {
     const value = e.target.value;
     setSearch(value);

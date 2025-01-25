@@ -1,9 +1,12 @@
 import express from "express";
 import mysql from "mysql";
 import cors from "cors";
+import multer from "multer";
 
 // Initializing the express server
 const app = express();
+
+const upload = multer({ dest: "uploads/" });
 
 // Initializing the sql database
 const db = mysql.createConnection({
@@ -37,13 +40,13 @@ app.get("/users", (req, res) => {
   });
 });
 
-app.post("/buku", (req, res) => {
-  const q = "INSERT INTO buku (`cover`, `title`, `description`) VALUES (?)";
-  const values = [req.body.cover, req.body.title, req.body.description];
+app.post("/buku", upload.single("cover"), (req, res) => {
+  const query = "INSERT INTO buku (cover, title, description) VALUES (?, ?, ?)";
+  const values = [req.file?.path || "", req.body.title, req.body.description];
 
-  db.query(q, [values], (err, data) => {
-    if (err) return err;
-    res.json(data);
+  db.query(query, values, (err, data) => {
+    if (err) return res.status(500).json({ error: err.message });
+    res.status(201).json({ message: "Book added", data });
   });
 });
 

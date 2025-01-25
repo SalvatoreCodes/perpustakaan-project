@@ -270,11 +270,14 @@ main .books-container .book-card:hover {
   width: 100%;
   padding: 8px 16px;
   border: 2px solid var(--primary);
+  margin-bottom: 16px;
 }
-.buku-popup .buku-popup-content section .add-popup button,
-.buku-popup .delete-popup-content section .add-popup button,
-.delete-popup .buku-popup-content section .add-popup button,
-.delete-popup .delete-popup-content section .add-popup button {
+.buku-popup .buku-popup-content section .add-popup .submit-button,
+.buku-popup .delete-popup-content section .add-popup .submit-button,
+.delete-popup .buku-popup-content section .add-popup .submit-button,
+.delete-popup .delete-popup-content section .add-popup .submit-button {
+  width: -moz-max-content;
+  width: max-content;
   position: absolute;
   bottom: 16px;
   right: 16px;
@@ -285,10 +288,10 @@ main .books-container .book-card:hover {
   border: none;
   cursor: pointer;
 }
-.buku-popup .buku-popup-content section .add-popup button:hover,
-.buku-popup .delete-popup-content section .add-popup button:hover,
-.delete-popup .buku-popup-content section .add-popup button:hover,
-.delete-popup .delete-popup-content section .add-popup button:hover {
+.buku-popup .buku-popup-content section .add-popup .submit-button:hover,
+.buku-popup .delete-popup-content section .add-popup .submit-button:hover,
+.delete-popup .buku-popup-content section .add-popup .submit-button:hover,
+.delete-popup .delete-popup-content section .add-popup .submit-button:hover {
   scale: 1.1;
 }
 .buku-popup .buku-popup-content .delete-popup-buttons,

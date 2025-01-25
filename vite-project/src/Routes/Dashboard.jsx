@@ -55,15 +55,19 @@ function Dashboard() {
 
     const clickHandler = async (e) => {
       e.preventDefault();
+
+      const formData = new FormData();
+      formData.append("cover", bukuData.cover);
+      formData.append("title", bukuData.title);
+      formData.append("description", bukuData.description);
+
       try {
-        if (buttonIndex === 1) {
-          await axios.post("http://localhost:8800/buku", bukuData);
-          setBuku((prev) => [...prev, bukuData]);
-        } else if (buttonIndex === 2) {
-          await axios.post("http://localhost:8800/users", userData);
-          setUsers((prev) => [...prev, userData]);
-        }
-        setPopup(false);
+        await axios.post("http://localhost:8800/buku", formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        });
+        setBuku((prev) => [...prev, bukuData]);
       } catch (err) {
         console.log(err);
       }
@@ -107,13 +111,20 @@ function Dashboard() {
               <h1>Edit</h1>
             </div>
             <div className="add-popup" id="add-buku-popup">
-              <h3>Cover</h3>
-              <input type="file" name="cover" onChange={inputHandler} />
-              <h3>Title</h3>
-              <input type="text" name="title" onChange={inputHandler} />
-              <h3>Description</h3>
-              <input type="text" name="description" onChange={inputHandler} />
-              <button onClick={clickHandler}>Submit</button>
+              <form
+                action="/buku"
+                method="post"
+                encType="multipart/form-data"
+                onSubmit={clickHandler}
+              >
+                <h3>Cover</h3>
+                <input type="file" name="cover" onChange={inputHandler} />
+                <h3>Title</h3>
+                <input type="text" name="title" onChange={inputHandler} />
+                <h3>Description</h3>
+                <input type="text" name="description" onChange={inputHandler} />
+                <input type="submit" value="Submit" className="submit-button" />
+              </form>
             </div>
             <div className="add-popup" id="add-user-popup">
               <h3>Name</h3>
@@ -221,16 +232,14 @@ function Dashboard() {
           <div className="users-data">
             {users.map((user) => (
               <div className="dashboard-users" key={user.id}>
-                <h5>
-                  {user.is_admin ? (
-                    <h4>
-                      {user.name}
-                      <p>ADMIN</p>
-                    </h4>
-                  ) : (
-                    user.name
-                  )}
-                </h5>
+                {user.is_admin ? (
+                  <h5>
+                    {user.name}
+                    <p>ADMIN</p>
+                  </h5>
+                ) : (
+                  <h5>{user.name}</h5>
+                )}
                 <div className="dashboard-users-controls">
                   <button onClick={clickHandler} name="edit">
                     <img src={editIcon} alt="edit icon" name="edit" />
